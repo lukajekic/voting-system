@@ -45,6 +45,9 @@ location.href = `/group/${response.data._id}`
       const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/group?view=${view}`)
       if (response.status === 200) {
 setgroupslist(response.data)
+if (response.data.length === 0 && view === "admin") {
+  location.href = '/groups?view=member'
+}
       }
     } catch (error) {
       console.error(error)
@@ -101,7 +104,17 @@ setgroupslist(response.data)
       {/* row 1 */}
       {groupslist.map((item, index)=>{
         return (
-          <tr key={item._id} className='clickable-row' onClick={()=>{location.href=`/group/${item._id}`}}>
+<tr 
+  key={item._id} 
+  className='clickable-row' 
+  onClick={() => {
+    if (view === "admin") {
+      location.href = `/group/${item._id}`;
+    } else if (view === "member") {
+      location.href = `/member/group/${item._id}`;
+    }
+  }}
+>
         <th>{index + 1}</th>
         <td>{item.title}</td>
         <td className='text-center'><div className="badge badge-success">{item.members.length}</div></td>
