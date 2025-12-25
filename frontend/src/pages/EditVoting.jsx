@@ -128,7 +128,11 @@ setoptiondeletionID("")
 
 const HandleVotingEdit = async()=>{
     try {
-    const response = await axios.put(`${import.meta.env.VITE_BACKEND}/api/voting/${votingid}`, editData)
+    const dataToSend = {
+      ...editData,
+      expiration: moment(editData.expiration).utc().toISOString()
+    }
+    const response = await axios.put(`${import.meta.env.VITE_BACKEND}/api/voting/${votingid}`, dataToSend)
     if (response.status === 200) {
 document.getElementById('editvoting').close()
 getVoting()

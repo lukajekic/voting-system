@@ -48,7 +48,11 @@ setgrouplist(groupnames)
   const handleSubmit = async()=>{
     try {
       console.log(createFom)
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND}/api/voting`, createFom)
+      const dataToSend = {
+        ...createFom,
+        expiration: moment(createFom.expiration).utc().toISOString()
+      }
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND}/api/voting`, dataToSend)
       if (response.status === 201) {
 location.href = `/voting/${response.data._id}`
       }
