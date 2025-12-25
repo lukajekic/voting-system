@@ -137,7 +137,7 @@ transition: Bounce,
         <th>{index + 1}</th>
         <td>{item.title}</td>
         <td>{item.group.title}</td>
-        <td>{item.votes?.length ?? 0}</td>
+        <td>{item.voted?.length}/{item.group?.members?.length}</td>
         <td>{item.status === "ready" ? (<div className='badge badge-info'>Nadolazeće</div>) : item.status === "running" ? (<div className='badge badge-warning'>U toku</div>) : item.status === "archived" ? (<div className='badge badge-secondary'>Završeno</div>) : (<div className='badge'>Nepoznat status</div>)}</td>
         <td>{moment(item.expiration).tz('Europe/Belgrade').format('DD. MM. YYYY. HH:mm')}</td>
       </tr>
